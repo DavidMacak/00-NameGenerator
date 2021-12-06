@@ -1,49 +1,45 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace NameGenerator
 {
     class Program
     {
-        
+        public static int pocetJmenCoChciVygenerovat = 50000;
+        public static bool chciJmenaUlozitDoTxt = true;
+
         static void Main(string[] args)
         {
-            RandomName myNameGenerator = new RandomName();
+            Stopwatch stopwatch = new Stopwatch();
+            RandomName r1 = new RandomName();
             FileManager fileManager = new FileManager();
 
-            fileManager.GetFirstNames(ref myNameGenerator.firstNameList);
-            fileManager.GetLastNames(ref myNameGenerator.lastNameList);
+            fileManager.GetFirstNames(ref RandomName.firstNameList);
+            fileManager.GetLastNames(ref RandomName.lastNameList);
 
-            myNameGenerator.GenerateNames(1000000);
+            stopwatch.Start();
+            r1.GenerateNames(pocetJmenCoChciVygenerovat);
+            stopwatch.Stop();
+            TimeSpan ts = stopwatch.Elapsed;
+            string elapsedTime1 = String.Format("Generovani jmen trvalo: {0:00}:{1:00}:{2:00}.{3}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
 
-            //Task.WaitAll();
-            //fileManager.CreateFileGenerated(myNameGenerator.fullNameListWithNumber);
+            stopwatch.Restart();
+            r1.PrintAllNames(ref r1.fullNameListWithNumber);
+            stopwatch.Stop();
+            ts = stopwatch.Elapsed;
+            string elapsedTime2 = String.Format("Vypsani jmen do konzole trvalo: {0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
 
-            //List<string> generatedNames = new List<string>();
-            //List<string> ram1 = new List<string>();
-            //List<string> ram2 = new List<string>();
-            //List<string> ram3= new List<string>();
-            //List<string> ram4= new List<string>();
+            stopwatch.Restart();
+            if (chciJmenaUlozitDoTxt)
+                fileManager.CreateFileGenerated(r1.fullNameListWithNumber);
+            stopwatch.Stop();
+            ts = stopwatch.Elapsed;
+            string elapsedTime3 = String.Format("Ulozeni do souboru trvalo: {0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds);
 
-            //fileManager.LoadFile("Generated.txt", ref generatedNames);
-            //ram1 = generatedNames;
-            //ram2 = ram1;
-            //ram3 = ram2;
-            //ram4 = ram3;
+            Console.WriteLine(elapsedTime1);
+            Console.WriteLine(elapsedTime2);
+            Console.WriteLine(elapsedTime3);
 
-            //Console.WriteLine(generatedNames.Count);
-            //Console.WriteLine(generatedNames.Capacity);
-
-
-            //foreach (string line in generatedNames)
-            //{
-            //    Console.WriteLine(line);
-            //}
-
-            
             Console.ReadKey();
         }
 
