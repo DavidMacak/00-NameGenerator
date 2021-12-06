@@ -17,31 +17,31 @@ namespace NameGenerator
             fileManager.GetFirstNames(ref myNameGenerator.firstNameList);
             fileManager.GetLastNames(ref myNameGenerator.lastNameList);
 
-            myNameGenerator.GenerateNames(1048576);
+            myNameGenerator.GenerateNames(1000000);
 
             //Task.WaitAll();
-            fileManager.CreateFileGenerated(myNameGenerator.fullNameListWithNumber);
+            //fileManager.CreateFileGenerated(myNameGenerator.fullNameListWithNumber);
 
-            List<string> generatedNames = new List<string>();
+            //List<string> generatedNames = new List<string>();
             //List<string> ram1 = new List<string>();
             //List<string> ram2 = new List<string>();
             //List<string> ram3= new List<string>();
             //List<string> ram4= new List<string>();
 
-            fileManager.LoadFile("Generated.txt", ref generatedNames);
+            //fileManager.LoadFile("Generated.txt", ref generatedNames);
             //ram1 = generatedNames;
             //ram2 = ram1;
             //ram3 = ram2;
             //ram4 = ram3;
 
-            Console.WriteLine(generatedNames.Count);
-            Console.WriteLine(generatedNames.Capacity);
+            //Console.WriteLine(generatedNames.Count);
+            //Console.WriteLine(generatedNames.Capacity);
 
 
-            foreach (string line in generatedNames)
-            {
-                Console.WriteLine(line);
-            }
+            //foreach (string line in generatedNames)
+            //{
+            //    Console.WriteLine(line);
+            //}
 
             
             Console.ReadKey();

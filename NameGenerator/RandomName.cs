@@ -10,24 +10,25 @@ namespace NameGenerator
     public class RandomName
     {
         int count = 0;
+        int rInt;
+        public static Random r = new Random();
         public List<string> firstNameList = new List<string>();
         public List<string> lastNameList = new List<string>();
         public List<string> fullNameListWithNumber = new List<string>();
 
         public string GetName()
         {
-            string firstName = firstNameList[RandomNumber(firstNameList)];
-            string lastName = lastNameList[RandomNumber(lastNameList)];
+            string firstName = firstNameList[RandomNumber(ref firstNameList)];
+            string lastName = lastNameList[RandomNumber(ref lastNameList)];
             string fullName = firstName + " " + lastName;
 
             return fullName;
         }
 
-        private static int RandomNumber(List<string> list)
+        private int RandomNumber(ref List<string> list)
         {
+            rInt = r.Next(0, list.Count);
 
-            Random r = new Random();
-            int rInt = r.Next(0, list.Count);
             return rInt;
         }
 
@@ -74,14 +75,14 @@ namespace NameGenerator
                     string fullname = GetName();
                     string message = count + " " + fullname;
                     fullNameListWithNumber.Add(message);
-                    //PrintName(message);
+                    PrintName(message);
                     count++;
                 }
             }
         }
+
         public void PrintName(string message)
         {
-            
             Console.WriteLine(message);
         }
 
